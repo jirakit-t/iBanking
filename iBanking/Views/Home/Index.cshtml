@@ -1,31 +1,98 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-2" style="text-align:right;">
+            <img src="@ViewBag.ImagePath" alt="image" style="height:100px" />
+        </div>
+        <div class="col-md-7">
+            <div class="form-group">
+                <label class="col-md-4" style="text-align:right;">Name: </label>
+                <div class="col-md-8">
+                    @ViewBag.UserName
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="text-align:right;">Action today : </label>
+                <div class="col-md-2" style="text-align:center;">
+                    @ViewBag.TransitionToday
+                </div>
+                <label class="col-md-5">transitions</label>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="text-align:right;">Balance today : </label>
+                <div class="col-md-2" style="text-align:center;">
+                    @ViewBag.BalanceTransitionToday
+                </div>
+                <label class="col-md-5">Bahts</label>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="text-align:right;">Total Fee: </label>
+                <div class="col-md-2" style="text-align:center;">
+                    @ViewBag.FeeTransitionToday
+                </div>
+                <label class="col-md-5">Bahts</label>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+<hr  style="border-width:2px; margin: 0px; padding: 5px; left:0; right: 0; width: 99%; height: 100%; top:0; bottom: 0; border-color:#808080"/>
+<table id="datatable" class="tablegray" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Create date</th>
+            <th>Category Name</th>
+            <th>Account Name</th>
+            <th>Transfer to Account</th>
+            <th>Amount</th>
+            <th>Fee</th>
+            <th>Net Amount</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in ViewBag.TransitionList)
+        {
+        <tr id="@t.ID">
+            <td>@t.CreateDate</td>
+            @if (t.CategoryID == 1)
+            {
+                <td>Deposit</td>
+            }
+            else if (t.CategoryID == 2)
+            {
+                <td>Withdraw</td>
+            }
+            else
+            {
+                <td>Transfer</td>
+            }
+            <td>@t.Customer.IBANNo</td>
+            @if (t.Customer1 != null)
+            {
+                <td>@t.Customer1.IBANNo</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td>@t.Amount.ToString("#,##0.##")</td>
+            <td>@t.Fee.ToString("#,##0.##")</td>
+            <td>@t.AfterFee.ToString("#,##0.##")</td>
+            <td>@t.Note</td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $('#datatable').dataTable({
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "searching": false,
+        "sDom": "t",
+        "scrollY": window.innerHeight - 500,
+        "scrollCollapse": true
+    });
+</script>

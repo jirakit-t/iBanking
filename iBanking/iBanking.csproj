@@ -19,8 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -45,10 +45,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.1.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -146,11 +184,57 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetUsersController.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TransitionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AllCustomerBalance.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Branch.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Transition.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransitionChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,27 +242,923 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\jquery-ui-timepicker-addon.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="medias\Users\Banker.png" />
+    <Content Include="medias\Users\user-male.png" />
+    <Content Include="Models\Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="IbanGenerator.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\DataTables\css\semanticui.scss" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\highcharts\7.1.2\css\annotations\popup.css" />
+    <Content Include="Scripts\highcharts\7.1.2\css\highcharts.css" />
+    <Content Include="Scripts\highcharts\7.1.2\css\stocktools\gui.css" />
+    <Content Include="Scripts\highcharts\7.1.2\css\themes\dark-unica.css" />
+    <Content Include="Scripts\highcharts\7.1.2\css\themes\grid-light.css" />
+    <Content Include="Scripts\highcharts\7.1.2\css\themes\sand-signika.css" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\annotations.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\ControllableCircle.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\ControllableImage.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\ControllableLabel.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\controllableMixin.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\ControllablePath.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\ControllableRect.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\controllable\markerMixin.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\ControlPoint.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\eventEmitterMixin.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\MockPoint.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\navigationBindings.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\popup.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\CrookedLine.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\ElliottWave.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\Fibonacci.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\InfinityLine.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\Measure.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\Pitchfork.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\Tunnel.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\annotations\types\VerticalLine.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\error-messages.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\error.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\highcharts-3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\highcharts-more.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\highcharts.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\accessibility.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\annotations-advanced.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\annotations.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\arrow-symbols.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\boost-canvas.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\boost.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\broken-axis.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\bullet.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\current-date-indicator.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\cylinder.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\data.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\datagrouping.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\debugger.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\dependency-wheel.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\dotplot.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\drag-panes.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\draggable-points.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\drilldown.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\export-data.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\exporting.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\full-screen.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\funnel.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\funnel3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\gantt.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\grid-axis.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\heatmap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\histogram-bellcurve.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\item-series.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\networkgraph.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\oldie-polyfills.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\oldie.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\organization.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\overlapping-datalabels.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\parallel-coordinates.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\pareto.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\pathfinder.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\pattern-fill.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\price-indicator.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\pyramid3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\sankey.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\series-label.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\sonification.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\static-scale.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\stock-tools.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\stock.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\streamgraph.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\sunburst.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\tilemap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\timeline.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\treegrid.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\treemap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\variable-pie.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\variwide.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\vector.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\venn.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\windbarb.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\wordcloud.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\modules\xrange.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\avocado.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\avocado.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\dark-blue.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\dark-green.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\dark-unica.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\gray.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\grid-light.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\grid.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\sand-signika.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\skies.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\sunset.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\masters\themes\sunset.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\ajax.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\centered-series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\derived-series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\download-url.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\draw-point.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\geometry-circles.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\geometry.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\indicator-required.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\multipe-lines.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\navigation.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\nodes.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\on-series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\polygon.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\reduce-array.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\mixins\tree-series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\a11y-i18n.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\accessibility.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\AccessibilityComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\ContainerComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\InfoRegionComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\LegendComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\MenuComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\RangeSelectorComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\SeriesComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\components\ZoomComponent.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\KeyboardNavigation.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\KeyboardNavigationHandler.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\accessibility\options.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\bellcurve.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost-canvas.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boost-attach.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boost-init.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boost-options.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boost-overrides.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boost-utils.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boost.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boostable-map.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\boostables.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\named-colors.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\wgl-renderer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\wgl-shader.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\boost\wgl-vbuffer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\broken-axis.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\bullet.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\cylinder.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\data.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\debugger.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\dependency-wheel.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\dotplot.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\drag-panes.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\draggable-points.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\drilldown.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\export-data.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\exporting.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\full-screen.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\funnel.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\funnel3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\histogram.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\item-series.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\networkgraph\draggable-nodes.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\networkgraph\integrations.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\networkgraph\layouts.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\networkgraph\networkgraph.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\networkgraph\QuadTree.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\oldie-polyfills.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\oldie.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\organization.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\overlapping-datalabels.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\parallel-coordinates.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\pareto.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\pattern-fill.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\price-indicator.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\pyramid3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sankey.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\series-label.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\chartSonify.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\Earcon.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\Instrument.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\instrumentDefinitions.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\musicalFrequencies.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\pointSonify.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\sonification.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\Timeline.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sonification\utilities.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\static-scale.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\stock-tools-bindings.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\stock-tools-gui.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\streamgraph.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\sunburst.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\tilemap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\timeline.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\treemap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\variable-pie.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\variwide.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\vector.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\venn.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\windbarb.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\wordcloud.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\modules\xrange.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Axis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Chart.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Column.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Math.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Pie.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Scatter.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\Series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\SVGRenderer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-3d\VMLRenderer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\ArrowSymbols.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\CurrentDateIndicator.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\GanttChart.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\GanttSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\GridAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\Pathfinder.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\PathfinderAlgorithms.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\Tree.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-gantt\TreeGrid.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\ColorAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\ColorSeriesMixin.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\GeoJSON.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\HeatmapSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\Map.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapBubbleSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapLineSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapNavigation.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapPointer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapPointSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-map\MapSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\AreaRangeSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\AreaSplineRangeSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\BoxPlotSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\BubbleLegend.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\BubbleSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\ColumnPyramidSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\ColumnRangeSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\ErrorBarSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\GaugeSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\PackedBubbleSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\Pane.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\Polar.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\PolygonSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\RadialAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts-more\WaterfallSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\AreaSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\AreaSplineSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Axis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\BarSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\CandlestickSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Chart.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Color.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\ColumnSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\DataGrouping.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\DataLabels.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\DateTimeAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Dynamics.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\FlagsSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Globals.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Html.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Interaction.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Legend.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\LogarithmicAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\MSPointer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Navigator.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\OHLCSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Options.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\OrdinalAxis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\PieSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\PlotBandSeries.experimental.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\PlotLineOrBand.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Point.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Pointer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\RangeSelector.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Responsive.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\ScatterSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\ScrollablePlotArea.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Scrollbar.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\SplineSeries.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Stacking.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\StockChart.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\SvgRenderer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Tick.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Time.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Tooltip.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\TouchPointer.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\parts\Utilities.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\avocado.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\dark-blue.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\dark-green.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\dark-unica.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\gray.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\grid-light.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\grid.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\sand-signika.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\skies.js" />
+    <Content Include="Scripts\highcharts\7.1.2\es-modules\themes\sunset.js" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts-3d.js" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts-3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts-more.js" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts-more.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts.js" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\canvg.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\canvg.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\jspdf.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\jspdf.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\rgbcolor.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\rgbcolor.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\svg2pdf.js" />
+    <Content Include="Scripts\highcharts\7.1.2\lib\svg2pdf.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\accessibility.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\accessibility.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\annotations-advanced.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\annotations-advanced.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\annotations.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\annotations.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\arrow-symbols.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\arrow-symbols.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\boost-canvas.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\boost-canvas.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\boost.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\boost.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\broken-axis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\broken-axis.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\bullet.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\bullet.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\current-date-indicator.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\current-date-indicator.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\cylinder.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\cylinder.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\data.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\data.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\datagrouping.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\datagrouping.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\debugger.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\debugger.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\dependency-wheel.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\dependency-wheel.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\dotplot.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\dotplot.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\drag-panes.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\drag-panes.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\draggable-points.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\draggable-points.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\drilldown.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\drilldown.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\export-data.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\export-data.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\exporting.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\exporting.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\full-screen.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\full-screen.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\funnel.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\funnel.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\funnel3d.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\funnel3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\gantt.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\gantt.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\grid-axis.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\grid-axis.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\heatmap.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\heatmap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\histogram-bellcurve.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\histogram-bellcurve.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\item-series.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\item-series.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\networkgraph.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\networkgraph.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\no-data-to-display.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\offline-exporting.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\oldie-polyfills.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\oldie-polyfills.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\oldie.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\oldie.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\organization.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\organization.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\overlapping-datalabels.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\overlapping-datalabels.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\parallel-coordinates.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\parallel-coordinates.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pareto.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pareto.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pathfinder.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pathfinder.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pattern-fill.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pattern-fill.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\price-indicator.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\price-indicator.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pyramid3d.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pyramid3d.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sankey.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sankey.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\series-label.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\series-label.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\solid-gauge.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sonification.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sonification.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\static-scale.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\static-scale.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\stock-tools.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\stock-tools.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\stock.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\stock.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\streamgraph.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\streamgraph.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sunburst.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sunburst.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\tilemap.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\tilemap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\timeline.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\timeline.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\treegrid.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\treegrid.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\treemap.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\treemap.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\variable-pie.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\variable-pie.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\variwide.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\variwide.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\vector.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\vector.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\venn.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\venn.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\windbarb.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\windbarb.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\wordcloud.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\wordcloud.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\xrange.js" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\xrange.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\avocado.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\avocado.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-blue.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-blue.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-green.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-green.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-unica.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-unica.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\gray.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\gray.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\grid-light.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\grid-light.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\grid.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\grid.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\sand-signika.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\sand-signika.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\skies.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\skies.src.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\sunset.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\sunset.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\skies.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\sand-signika.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\grid.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\grid-light.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\gray.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-unica.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-green.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\dark-blue.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\avocado.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\xrange.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\wordcloud.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\windbarb.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\venn.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\vector.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\variwide.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\variable-pie.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\treemap.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\treegrid.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\timeline.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\tilemap.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sunburst.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\streamgraph.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\stock.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\stock-tools.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\static-scale.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sonification.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\solid-gauge.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\series-label.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\sankey.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pyramid3d.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\price-indicator.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pattern-fill.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pathfinder.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\pareto.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\parallel-coordinates.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\overlapping-datalabels.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\organization.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\oldie.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\oldie-polyfills.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\offline-exporting.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\no-data-to-display.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\networkgraph.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\item-series.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\histogram-bellcurve.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\heatmap.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\grid-axis.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\gantt.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\funnel3d.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\funnel.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\full-screen.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\exporting.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\export-data.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\drilldown.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\draggable-points.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\drag-panes.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\dotplot.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\dependency-wheel.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\debugger.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\datagrouping.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\data.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\cylinder.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\current-date-indicator.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\bullet.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\broken-axis.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\boost.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\boost-canvas.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\arrow-symbols.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\annotations.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\annotations-advanced.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\modules\accessibility.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts-more.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\highcharts-3d.js.map" />
+    <Content Include="Scripts\highcharts\7.1.2\css\themes\sand-signika.scss" />
+    <Content Include="Scripts\highcharts\7.1.2\css\themes\grid-light.scss" />
+    <Content Include="Scripts\highcharts\7.1.2\css\themes\dark-unica.scss" />
+    <Content Include="Scripts\highcharts\7.1.2\css\stocktools\gui.scss" />
+    <Content Include="Scripts\highcharts\7.1.2\css\highcharts.scss" />
+    <Content Include="Scripts\highcharts\7.1.2\css\annotations\popup.scss" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\highcharts\7.1.2\themes\sunset.src.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.min.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-af.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-am.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-bg.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ca.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-cs.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-da.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-de.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-el.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-es.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-et.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-eu.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fa.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fi.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-gl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-he.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-hr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-hu.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-id.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-it.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ja.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ko.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-lt.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-lv.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-mk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-nl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-no.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pt-BR.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pt.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ro.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ru.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sq.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sr-RS.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sr-YU.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sv.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-th.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-tr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-uk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-vi.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-CN.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-TW.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui-sliderAccess.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -192,10 +1172,44 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Branches\Create.cshtml" />
+    <Content Include="Views\Branches\Delete.cshtml" />
+    <Content Include="Views\Branches\Details.cshtml" />
+    <Content Include="Views\Branches\Edit.cshtml" />
+    <Content Include="Views\Branches\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Transitions\Create.cshtml" />
+    <Content Include="Views\Transitions\Delete.cshtml" />
+    <Content Include="Views\Transitions\Details.cshtml" />
+    <Content Include="Views\Transitions\Edit.cshtml" />
+    <Content Include="Views\Transitions\Index.cshtml" />
+    <Content Include="Views\Transitions\YearlyTransition.cshtml" />
+    <Content Include="Views\Account\LogOff.cshtml" />
+    <Content Include="Views\AspNetUsers\Create.cshtml" />
+    <Content Include="Views\AspNetUsers\Delete.cshtml" />
+    <Content Include="Views\AspNetUsers\Details.cshtml" />
+    <Content Include="Views\AspNetUsers\Edit.cshtml" />
+    <Content Include="Views\AspNetUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -207,8 +1221,20 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MSScriptControl">
+      <Guid>{0E59F1D2-1FBE-11D0-8FF2-00A0D10038BC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -228,7 +1254,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49736</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49736/</IISUrl>
+          <IISUrl>http://localhost:49766/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

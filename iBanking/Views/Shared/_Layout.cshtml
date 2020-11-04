@@ -3,38 +3,244 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>iBanking Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+    @*datetimepicker*@
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+    <link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+    @* datatable *@
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    @* highchart *@
+    <script src="~/Scripts/highcharts/7.1.2/highcharts.js"></script>
 </head>
+    @{ 
+        string currentUrl = ViewBag.URL;
+        int userid = Convert.ToInt32(ViewBag.Currentuser);
+        int userrole = Convert.ToInt32(ViewBag.UserRole);
+    }
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <style>
+        #menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: inline-flex;
+        }
+
+        .nav > li > a:hover,
+        .nav > li > a:focus {
+            text-decoration: none;
+            background-color: #86E3CE;
+            color: #ffffff;
+        }
+
+        a {
+            color: #264D59;
+            text-decoration: none;
+        }
+    </style>
+    <div>
+        <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#ffffff;height:100px">
+            <div class="container-fullwidth">
+                <div class="navbar-header" style="width:50%;">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collape"></button>
+                    <table style="width:100%; height:100%;">
+                        <tr>
+                            <td style="width:2px;height:70px; " align="left" id="homepage">
+                                <img src="~/medias/Users/user-male.png" style="width:80px;height:80px;" />
+                            </td>
+                            <td style="width:400px">
+                                @if (currentUrl != null)
+                                {
+                                    if (currentUrl.Contains("Transitions/Create/?CategoryID=1"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Deposit</h1>
+                                    }
+                                    else if (currentUrl.Contains("Transitions/Create/?CategoryID=2"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Withdrawal</h1>
+                                    }
+                                    else if (currentUrl.Contains("Transitions/Create/?CategoryID=3"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Transfer</h1>
+                                    }
+                                    else if (currentUrl.Contains("Transitions/Create/?CategoryID=3"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Transfer</h1>
+                                    }
+                                    else if (currentUrl.Contains("Home/Index"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Transition's Today</h1>
+                                    }
+                                    else if (currentUrl.Contains("Transitions/YearlyTransition"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Yearly Transition</h1>
+                                    }
+                                    else if (currentUrl.Contains("Transitions/MonthlyTransition"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Monthly Transition</h1>
+                                    }
+                                    else if (currentUrl.Contains("Transitions/CustomTransition"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Custom Transition</h1>
+                                    }
+                                    else if (currentUrl.Contains("AspNetUsers/Index"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Users list</h1>
+                                    }
+                                    else if (currentUrl.Contains("AspNetUsers/Create"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Create User</h1>
+                                    }
+                                    else if (currentUrl.Contains("AspNetUsers/Edit"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Edit User detail</h1>
+                                    }
+                                    else if (currentUrl.Contains("Branches/Index"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Branches list</h1>
+                                    }
+                                    else if (currentUrl.Contains("Branches/Create"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Create Branch</h1>
+                                    }
+                                    else if (currentUrl.Contains("Branches/Edit"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Edit Branch detail</h1>
+                                    }
+                                    else if (currentUrl.Contains("Customers/Index"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Customers list</h1>
+                                    }
+                                    else if (currentUrl.Contains("Customers/Create"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Create Customer</h1>
+                                    }
+                                    else if (currentUrl.Contains("Customers/Edit"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Edit Customer detail</h1>
+                                    }
+                                    else if (currentUrl.Contains("Account/ResetPassword"))
+                                    {
+                                        <h1 style="color:#264D59">iBanking system - Reset Password</h1>
+                                    }
+                                }
+                                else
+                                {
+                                    <h1>iBanking system</h1>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br /><br />
+                <div id="menu" class="navbar-collapse collapse" style="margin-right:20px;">
+                    <ul class="nav mainnavbar-nav navbar-right" role="tablist">
+                        @if (userid != 0)
+                        {
+                            <li>
+                                <a id="overview" href="/Home/Index" class="btn btn" style="font-size:15px;">Overview</a>
+                            </li>
+                            <li id="Service_Tab" role="presentation" style="height:6px;">
+                                <a href="#ServiceTab" aria-controls="ServiceTab" role="tab" data-toggle="tab" style="font-size:15px">Service</a>
+                            </li>
+                            if (userrole == 1)
+                            {
+                                <li id="Transition_Tab" role="presentation" style="height:6px;">
+                                    <a href="#TransitionTab" aria-controls="TransitionTab" role="tab" data-toggle="tab" style="font-size:15px">Transition</a>
+                                </li>
+                            }
+                            <li id="Settings_Tab" role="presentation" style="height:6px;">
+                                <a href="#SettingTab" aria-controls="SettingTab" role="tab" data-toggle="tab" style="font-size:15px">Settings</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <script type="text/javascript">
+                    $('#Service_Tab').click(function () {
+                        $(document).ready(function () {
+                            $('#Service_Tab a[href="#ServiceTab"]').tabs('show');
+                        });
+                    });
+
+                    $('#Transition_Tab').click(function () {
+                        $(document).ready(function () {
+                            $('#Transfer_Tab a[href="#TransitionTab"]').tabs('show');
+                        });
+                    });
+
+                    $('#Settings_Tab').click(function () {
+                        $(document).ready(function () {
+                            $('#Settings_Tab a[href="#SettingTab"]').tabs('show');
+                        });
+                    });
+                </script>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+            <table class="table" style="width:100%;height:36px;padding-bottom:100px">
+                <tr style="background-color:#86E3CE">
+                    <td style="height:20px">
+                        <div class="form-horizontal">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane navbar-left" id="ServiceTab">
+                                    <a href="/Transitions/Create/?CategoryID=1" style="color:#264D59;padding-right:50px">Deposit</a>
+                                    <a href="/Transitions/Create/?CategoryID=2" style="color:#264D59;padding-right:50px">Withdraw</a>
+                                    <a href="/Transitions/Create/?CategoryID=3" style="color:#264D59;padding-right:50px">Transfer</a>
+                                </div>
+                                <div role="tabpanel" class="tab-pane navbar-left" id="TransitionTab">
+                                    <a href="/Transitions/YearlyTransition" style="color:#264D59;padding-right:50px">Yearly</a>
+                                    @*<a href="/Transitions/Index" style="color:#264D59;padding-right:50px">Monthly</a>
+                                    <a href="/Transitions/Index" style="color:#264D59;padding-right:50px">Custom Date</a>*@
+                                </div>
+                                <div role="tabpanel" class="tab-pane navbar-left" id="SettingTab">
+                                    @if (userrole == 1)
+                                    {
+                                        <a href="/AspNetUsers/Index" style="color:#264D59;padding-right:50px">Users</a>
+                                        <a href="/Customers/Index" style="color:#264D59;padding-right:50px">Customers</a>
+                                        <a href="/Branches/Index" style="color:#264D59;padding-right:50px">Branches</a>
+                                    }
+                                    else if (userrole == 2)
+                                    {
+                                        <a href="/AspNetUsers/Index" style="color:#264D59;padding-right:50px">Users</a>
+                                        <a href="/Customers/Index" style="color:#264D59;padding-right:50px">Customers</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Customers/Index" style="color:#264D59;padding-right:50px">Customers</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="container-fullwidth body-content" style="margin-top: 90px; margin-left:5px;">
+            @RenderBody()
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLongTitle">Forgot your password?</h3>
+                    </div>
+                    <div class="modal-body">
+                        Please contact email: jirakit.ae@gmail.com
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

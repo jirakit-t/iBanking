@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "YearlyTransition";
+}
+@{
+    <script type="text/javascript">
+        var DepositList = [];
+        var WithdrawList = [];
+    </script>
+    foreach (var e in ViewBag.Transitionchart)
+    {
+        decimal deposit = 0;
+        decimal withdraw = 0;
+        deposit = e.Deposit;
+        withdraw = e.Withdraw;
+
+        <script type="text/javascript">
+            DepositList.push(@deposit);
+            WithdrawList.push(@withdraw)
+        </script>
+    }
+
+}
+<table class="table" style="width:100%;">
+    <tr>
+        <td id="TransitionChart" style="height: 450px;" align="center"></td>
+        <td style="width:20%; padding-left:50px">
+            <table id="TransitionTable" class="table" style="width:100%" border="1">
+                <tr>
+                    <th>Date</th>
+                    <th>Deposit</th>
+                    <th>Withdraw</th>
+                    <th>Transfer</th>
+                    <th>Fee</th>
+                    <th>Balance</th>
+                </tr>
+                @foreach (var t in ViewBag.Transitionchart)
+                {
+                    <tr>
+                        <td>@t.Date</td>
+                        <td>@t.Deposit</td>
+                        <td>@t.Withdraw</td>
+                        <td>@t.Transfer</td>
+                        <td>@t.Fee</td>
+                        <td>@t.Balance</td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var TransitionChart;
+    $(document).ready(function () {
+        TransitionChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'TransitionChart',
+                type: 'column'
+            },
+            title: {
+                text: 'Deposit / Withdrawal Per Month'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Baht'
+                }
+            }],
+            legend: {
+                shadow: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    grouping: false,
+                    shadow: false,
+                    borderWidth: 0,
+                    animation: false
+                }
+            },
+            series: [{
+                name: 'Deposit',
+                color: 'rgba(180, 180, 180,1)',
+                data: DepositList,
+                pointPadding: 0.3,
+                pointPlacement: -0.2
+            }, {
+                name: 'Withdraw',
+                color: 'rgba(186,60,61,.9)',
+                data: WithdrawList,
+                pointPadding: 0.4,
+                pointPlacement: -0.2
+            }]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $('#TransitionTable').DataTable();
+
+</script>

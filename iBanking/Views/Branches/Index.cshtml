@@ -1,0 +1,62 @@
+﻿@model IEnumerable<iBanking.Models.Branch>
+
+@{
+    ViewBag.Title = "Branches";
+}
+<table class="table">
+    <tr>
+        <th>
+            Branch Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Fax
+        </th>
+        @if (ViewBag.UserRole == 1)
+        {
+            <th>
+                <a class="btn btn-success" style="height: 30px; font-size: smaller;" href="@Url.Action("Create", "Branches")">Create New</a>
+            </th>
+        }
+        else
+        {
+            <th></th> 
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fax)
+            </td>
+            @if (ViewBag.UserRole == 1)
+            {
+                <td>
+                    <a class="btn btn-default" style="height: 20px; padding-top: 2px; font-size: x-small;" href="@Url.Action("Edit", "Branches", new { id = item.ID })">Edit</a>
+                </td>
+            }
+            else
+            {
+                <td></td> 
+            }
+        </tr>
+    }
+</table>
+<script type="text/javascript">
+    $('#Datatable').dataTable();
+</script>

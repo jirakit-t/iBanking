@@ -1,0 +1,85 @@
+﻿@model iBanking.Models.Customer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="background-color:#EDEDED; padding: 10px 0px 10px 0px;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.IBANNo)
+        
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">IBANNo :</p>
+            <div class="col-md-2" style="padding-left:0px">
+                <input id="IBANNo" class="form-control" value="@ViewBag.IbanNo" readonly />
+                @Html.ValidationMessageFor(model => model.IBANNo, "", new { @class = "text-danger" })
+            </div>
+
+            <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;">CardID :</p>
+            <div class="col-md-6" style="padding-left:0px">
+                @Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.CardID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">Customer Name :</p>
+            <div class="col-md-2" style="padding-left:0px">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;">Birth Date :</p>
+            <div class="col-md-6" style="padding-left:0px">
+                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", @value= ViewBag.BirthDate, autocomplete = "off" } })
+                <script type="text/javascript">
+                    $('#BirthDate').datetimepicker({ dateFormat: 'yy/mm/dd', firstday: 1, showOtherMonths: true, value: '2020/10/10'});
+                </script>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">Email :</p>
+            <div class="col-md-2" style="padding-left:0px">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;">Address :</p>
+            <div class="col-md-6" style="padding-left:0px">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">Phone 1 :</p>
+            <div class="col-md-2" style="padding-left:0px">
+                @Html.EditorFor(model => model.Phone1, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Phone1, "", new { @class = "text-danger" })
+            </div>
+
+            <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;">Phone 2 :</p>
+            <div class="col-md-6" style="padding-left:0px">
+                @Html.EditorFor(model => model.Phone2, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Phone2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" /> |
+                <a href="/Customers/Index" class="btn btn-default">Back to list</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

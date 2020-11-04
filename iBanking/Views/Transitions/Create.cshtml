@@ -1,0 +1,176 @@
+﻿@model iBanking.Models.Transition
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="background-color:#EDEDED; padding: 10px 0px 10px 0px;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if(ViewBag.UserRole == 1)
+        {
+        <div class="form-group">
+            <p class="col-md-3 control-label" style="text-align:right; padding-right:5px;">Branch :</p>
+            <div class="col-md-2">
+                @Html.DropDownList("BranchID", null, "Please select...", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BranchID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        }
+
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">Account No :</p>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    <input id="AccountSearch" type="text" class="form-control" placeholder="Search" />
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#AccountSearch").change(function () {
+                            $("#CustomerID").empty();
+                            $.ajax({ url: '/Transitions/GetAccountView?search=' + $('#AccountSearch').val(), context: document.body, cache: false, type: "POST" })
+                                .done(function (data) {
+                                    var Type = "<select id='CustomerID'>";
+                                    Type = Type + '<option value="">Please select...</option>';
+                                    for (var i = 0; i < data.length; i++) {
+                                        Type = Type + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                                    }
+                                    Type = Type + '</select>';
+                                    $('#CustomerID').html(Type);
+                                });
+                        })
+                    });
+                </script>
+            </div>
+            @if (ViewBag.CategoryID == 3)
+            {
+                <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;visibility:visible">Account Transfer To :</p>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input id="AccountToSearch" type="text" class="form-control" placeholder="Search" />
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#AccountToSearch").change(function () {
+                                $("#ToCustomerID").empty();
+                                $.ajax({ url: '/Transitions/GetToAccountView?search=' + $('#AccountToSearch').val() + '&CustomerID=' + $('#CustomerID').val(), context: document.body, cache: false, type: "POST" })
+                                    .done(function (data) {
+                                        var Type = "<select id='ToCustomerID'>";
+                                        Type = Type + '<option value="">Please select...</option>';
+                                        for (var i = 0; i < data.length; i++) {
+                                            Type = Type + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                                        }
+                                        Type = Type + '</select>';
+                                        $('#ToCustomerID').html(Type);
+                                    });
+                            })
+                        });
+                    </script>
+                </div>
+            }
+
+        </div>
+
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">Account No :</p>
+            <div class="col-md-2">
+                @Html.DropDownList("CustomerID", null, "Please select...", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+            </div>
+            <script type="text/javascript">
+                $('#CustomerID').change(function () {
+                    $.ajax({
+                        url: '/Transitions/filterToCustomer/?CustomerID=' + document.getElementById('CustomerID').value, context: document.body, cache: false, type: "POST" })
+                        .done(function (data) {
+                            var customer = '<select id="ToCustomerID"><option value="">Please select...</option>';
+                            for (var i = 0; i < data.customerfilterid.length; i++) {
+                                customer = customer + '<option value=' + data.customerfilterid[i].Value + '>' + data.customerfilterid[i].Text + '</option>';
+                            }
+                            customer = customer + '</select>';
+                            $('#ToCustomerID').html(customer);
+
+                            document.getElementById('Balance').value = data.balance;
+                        });
+                });
+            </script>
+            @if (ViewBag.CategoryID == 3)
+            {
+                <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;visibility:visible">Transfer To :</p>
+                <div class="col-md-6" style="visibility:visible">
+                    @Html.DropDownList("ToCustomerID", null, "Please select...", htmlAttributes: new { @class = "form-control", autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.ToCustomerID, "", new { @class = "text-danger" })
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <p class="col-md-3 control-label " style="text-align:right; padding-right:5px;">Amount :</p>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+            <script type="text/javascript">
+                $('#Amount').change(function () {
+                    $.ajax({
+                        url: '/Transitions/FeeCalculate/?Amount=' + document.getElementById('Amount').value,
+                        context: document.body,
+                        cache: false,
+                        type: "POST"
+                    }).done(function (data) {
+                        if (@ViewBag.CategoryID != 1) {
+                            document.getElementById('AfterFee').value = data.Amount;
+                        }
+                        else {
+                            document.getElementById('Fee').value = data.Fee;
+                            document.getElementById('AfterFee').value = data.NetAmount;
+                        }
+                    });
+                });
+            </script>
+            @if (ViewBag.CategoryID == 1)
+            {
+                <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;">Fee (0.1%) :</p>
+                <div class="col-md-6">
+                    <input id="Fee" class="form-control" disabled />
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <p class="col-md-3 control-label" style="text-align:right; padding-right:5px;">Net Amount :</p>
+            <div class="col-md-2">
+                <input id="AfterFee" class="form-control" value="@ViewBag.AfterFee" disabled />
+            </div>
+
+            <p class="col-md-1 control-label" style="text-align:right; padding-right:5px;">Balance :</p>
+            <div class="col-md-6">
+                <input id="Balance" class="form-control" value="@ViewBag.Balance" disabled/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="col-md-3 control-label" style="text-align:right; padding-right:5px;">Note :</p>
+            <div class="col-sm-6">
+                @Html.TextAreaFor(model => model.Note, new { @class = "form-control", @style = "width: 100%; max-width:5000px;", @rows = "8" })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
